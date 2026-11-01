@@ -1,6 +1,6 @@
 # HireLens
 
-Turns a candidate's GitHub assignment, your rubric and their resume into a scored, evidence-backed review and a time-boxed interview guide, so first-time interviewers walk in prepared.
+HireLens: AI assignment reviewer and interview guide for hiring full stack interns.
 
 **Live demo:** <add Render URL>
 

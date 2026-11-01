@@ -2,7 +2,7 @@
 
 HireLens: AI assignment reviewer and interview guide for hiring full stack interns.
 
-**Live demo:** <add Render URL>
+**Live demo:** https://hirelens-15ah.onrender.com (the free tier sleeps when idle, so the first load can take about a minute)
 
 <!-- TODO: add screenshots of the review and the interview guide -->
 

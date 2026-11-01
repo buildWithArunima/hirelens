@@ -1,0 +1,36 @@
+{
+  "name": "hirelens",
+  "version": "1.0.0",
+  "description": "Reviews a candidate's GitHub assignment against a rubric and writes intern-level interview questions.",
+  "main": "backend/server.js",
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"node backend/server.js\" \"vite\"",
+    "build": "vite build",
+    "start": "node backend/server.js",
+    "server": "node backend/server.js",
+    "review": "node scripts/review.js",
+    "test": "node --test tests/unit/*.test.js && node tests/test-questions-offline.js",
+    "check-model": "node scripts/check-model.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "17.3.1",
+    "express": "4.22.3",
+    "openai": "6.29.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@tailwindcss/vite": "4.1.11",
+    "@vitejs/plugin-react": "4.3.4",
+    "concurrently": "9.1.0",
+    "tailwindcss": "4.1.11",
+    "vite": "5.4.11"
+  },
+  "engines": {
+    "node": ">=18.18"
+  }
+}

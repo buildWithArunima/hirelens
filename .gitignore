@@ -1,0 +1,12 @@
+node_modules/
+frontend/dist/
+.env
+.env.*
+!.env.example
+# Deliberately fake, used by the tests to check committed-.env detection
+!tests/fixtures/**/.env
+questions-output.json
+review.md
+review.json
+prompt-preview.txt
+.DS_Store

@@ -1,0 +1,72 @@
+{
+  "items": [
+    {
+      "rubricId": "R1", "rating": "meets", "confidence": "high",
+      "summary": "Create, list, toggle and delete are all wired from the React UI to the Express API and persisted in SQLite.",
+      "evidence": [
+        { "file": "client/src/App.jsx", "startLine": 15, "endLine": 26, "quote": "async function addTodo(e) {", "kind": "strength", "note": "Add flow posts to the API and updates state." },
+        { "file": "server/routes/todos.js", "startLine": 21, "endLine": 24, "quote": "router.delete(\"/:id\", (req, res) => {", "kind": "strength", "note": "Delete endpoint backs the UI button." }
+      ],
+      "improvementTip": "Re-fetch or reconcile with the server response after toggling so UI and DB can't drift.",
+      "probeQuestion": "Walk me through what happens, from click to database, when I tick a todo as done."
+    },
+    {
+      "rubricId": "R2", "rating": "meets", "confidence": "high",
+      "summary": "Routes are RESTful and live in their own router; the DB is a separate module. PATCH returns {ok:true} instead of the updated todo, and there is no 404 for unknown ids.",
+      "evidence": [
+        { "file": "server/index.js", "startLine": 8, "endLine": 8, "quote": "app.use(\"/api/todos\", todosRouter);", "kind": "strength", "note": "Router mounted under a clear resource path." },
+        { "file": "server/routes/todos.js", "startLine": 16, "endLine": 19, "quote": "res.json({ ok: true });", "kind": "gap", "note": "No 404 when the id doesn't exist." }
+      ],
+      "improvementTip": "Return 404 when changes === 0, and return the updated row from PATCH.",
+      "probeQuestion": "What status code should PATCH /api/todos/999 return if that todo doesn't exist?"
+    },
+    {
+      "rubricId": "R3", "rating": "partial", "confidence": "medium",
+      "summary": "Component split is fine for the size, but fetch errors are never caught or shown.",
+      "evidence": [
+        { "file": "client/src/components/TodoItem.jsx", "startLine": 1, "endLine": 9, "quote": "export default function TodoItem({ todo, onToggle, onDelete }) {", "kind": "strength", "note": "Presentational component with callbacks." },
+        { "file": "client/src/App.jsx", "startLine": 10, "endLine": 12, "quote": "fetch(API).then(r => r.json()).then(setTodos);", "kind": "gap", "note": "No .catch; a down API leaves a silent empty list." }
+      ],
+      "improvementTip": "Add an error state and show a message when a request fails.",
+      "probeQuestion": "What does the user see if the server is down when the page loads?"
+    },
+    {
+      "rubricId": "R4", "rating": "meets", "confidence": "high",
+      "summary": "Readable and consistent.",
+      "evidence": [
+        { "file": "server/utils/helpers.js", "startLine": 1, "endLine": 5, "quote": "function formatTodo(t) {", "kind": "strength", "note": "Helper functions are reused." }
+      ],
+      "improvementTip": "Move the API URL to an env variable.",
+      "probeQuestion": "Why did you hardcode the API URL?"
+    },
+    {
+      "rubricId": "R5", "rating": "minimal", "confidence": "high",
+      "summary": "The client blocks empty titles, but the server inserts whatever it gets. A null title would hit the NOT NULL constraint and throw a 500.",
+      "evidence": [
+        { "file": "server/routes/todos.js", "startLine": 10, "endLine": 13, "quote": "const { title } = req.body;", "kind": "gap", "note": "No server-side validation." },
+        { "file": "client/src/App.jsx", "startLine": 17, "endLine": 17, "quote": "if (!title.trim()) return;", "kind": "strength", "note": "Client-side guard against empty input." }
+      ],
+      "improvementTip": "Validate on the server too and return 400 with a message.",
+      "probeQuestion": "If I call your POST endpoint with curl and no body, what happens?"
+    },
+    {
+      "rubricId": "R6", "rating": "partial", "confidence": "high",
+      "summary": "README has run steps, but a .env with a password is committed.",
+      "evidence": [
+        { "file": "README.md", "startLine": 3, "endLine": 4, "quote": "Run the server: `cd server && npm install && node index.js`", "kind": "strength", "note": "Clear run commands." },
+        { "file": ".env", "startLine": 1, "endLine": 1, "quote": "DB_PASSWORD=supersecret123", "kind": "gap", "note": "Secret committed to git." }
+      ],
+      "improvementTip": "Add .env to .gitignore and commit a .env.example instead.",
+      "probeQuestion": "How would you keep secrets out of a public repo?"
+    }
+  ],
+  "requirements": [
+    { "requirement": "Create, view, complete, delete todos", "status": "met", "where": "client/src/App.jsx, server/routes/todos.js" },
+    { "requirement": "Persist todos in a database", "status": "met", "where": "server/db/database.js (SQLite)" },
+    { "requirement": "Basic input validation", "status": "partial", "where": "client only" }
+  ],
+  "overallSummary": "A small, working full-stack todo app with a clean Express + SQLite backend and a simple React UI. The main gaps are server-side validation and error handling, which are very normal at intern level.",
+  "topStrengths": ["End-to-end CRUD works", "Clear separation of routes and DB"],
+  "growthAreas": ["Server-side validation", "Showing API errors in the UI", "Tests"],
+  "redFlags": []
+}

@@ -1,0 +1,13 @@
+Priya Sharma
+B.Tech Computer Science, 3rd year, CGPA 8.4
+
+Skills: JavaScript, React, Node.js, Express, MongoDB, SQL, Git, HTML/CSS
+
+Projects
+- Campus Canteen Ordering App (React, Express, MongoDB): built a menu and cart UI,
+  REST API for orders, JWT login for students.
+- Expense Tracker (React, localStorage): charts monthly spending with Chart.js.
+
+Experience
+- Web Dev Intern, LocalStartup (2 months): fixed UI bugs in a React dashboard,
+  wrote API integration with Axios.

@@ -1,0 +1,18 @@
+# Render Blueprint: one free web service serving the built UI and the API on one port.
+services:
+  - type: web
+    name: hirelens
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: ACCESS_CODE
+        sync: false

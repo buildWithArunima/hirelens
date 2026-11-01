@@ -1,0 +1,7 @@
+- Functionality (25 pts): All CRUD operations work end to end from the UI.
+- Backend API design (20 pts): Sensible REST routes, status codes, separation of routes and data access.
+- Frontend (20 pts): Components are reasonably split, state is handled correctly, API errors are shown to the user.
+- Code quality (15 pts): Readable naming, no large duplicated blocks, consistent formatting.
+- Validation & error handling (10 pts): Empty or invalid input is rejected on the server; errors don't crash the app.
+- Documentation & setup (5 pts): README explains setup and run steps; secrets are not committed.
+- Testing (5 pts): Any automated tests, even a few, are a plus.
